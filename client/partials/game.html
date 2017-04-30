@@ -1,0 +1,26 @@
+<div class="container" ng-controller="HangmanCtrl">
+    <div>
+        <input type="text" class="form-control" placeholder="Start a new game by entering a word" ng-keypress="start($event)" ng-model="word">
+    </div>
+    <br/>
+    <div>
+        <h3 ng-show="game.status === 'won' || game.status === 'lost'">You {{game.status}}! The word was '{{hiddenWord}}'.</h3>
+    <div>
+        <table border=1 cellpadding=10 ng-show="game.status === 'inProgress'">
+            <tr>
+                <td ng-repeat="letter in game.word">{{letter.isFound ? letter.letter : '___'}}</td>
+            </tr>
+        </table>
+    </div>
+    <br/>
+    <div>
+        <input type="text" class="form-control" placeholder="Guess a letter" ng-keypress="guess($event)" data-ng-model="letter" />
+    </div>
+    <br/>
+    <div>
+        <p ng-show="correctGuesses">Correct guesses: {{correctGuesses}}</p>
+        <p ng-show="incorrectGuesses">incorrectGuessest guesses: {{incorrectGuesses}}</p>
+        <p ng-show="game.guessesRemaining">You have <b>{{game.guessesRemaining}}</b> guesses remaining!</p>
+        <p ng-show="warning"><b>{{warning}}</b></p>
+    </div>
+</div>

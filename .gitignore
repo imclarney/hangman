@@ -1,0 +1,5 @@
+# Libraries are available in bower.json
+/client/lib
+
+# Dependencies are specified in package.json
+/node_modules
