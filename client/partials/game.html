@@ -1,10 +1,20 @@
 <div class="container" ng-controller="HangmanCtrl">
     <div>
-        <input type="text" class="form-control" placeholder="Start a new game by entering a word" ng-keypress="start($event)" ng-model="word">
+        <table border=1 cellpadding=10>
+            <tr>
+                <td style="color:green">Wins: {{showResultType('won')}}</td>
+                <td style="color:red">Losses: {{showResultType('lost')}}</td>
+            </tr>
+        </table>
     </div>
     <br/>
     <div>
+        <input id="startGame" type="text" class="form-control" placeholder="Start a new game by entering a word" ng-keypress="start($event)" ng-model="word">
+    </div>
+    <hr/>
+    <div>
         <h3 ng-show="game.status === 'won' || game.status === 'lost'">You {{game.status}}! The word was '{{hiddenWord}}'.</h3>
+    </div>
     <div>
         <table border=1 cellpadding=10 ng-show="game.status === 'inProgress'">
             <tr>
@@ -14,13 +24,17 @@
     </div>
     <br/>
     <div>
-        <input type="text" class="form-control" placeholder="Guess a letter" ng-keypress="guess($event)" data-ng-model="letter" />
+        <input id="guessLetter" type="text" class="form-control" placeholder="Guess a letter" ng-keypress="guess($event)" data-ng-model="letter" />
     </div>
     <br/>
     <div>
         <p ng-show="correctGuesses">Correct guesses: {{correctGuesses}}</p>
-        <p ng-show="incorrectGuesses">incorrectGuessest guesses: {{incorrectGuesses}}</p>
+        <p ng-show="incorrectGuesses">Incorrect guesses: {{incorrectGuesses}}</p>
         <p ng-show="game.guessesRemaining">You have <b>{{game.guessesRemaining}}</b> guesses remaining!</p>
         <p ng-show="warning"><b>{{warning}}</b></p>
+    </div>
+    <br/>
+    <div>
+        <input type="button" value="Start over!" ng-show="hiddenWord.length > 0" ng-click="delete()" />
     </div>
 </div>

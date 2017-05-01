@@ -6,7 +6,7 @@ hangman.factory('hangmanFactory', function($http) {
     return $http.get(urlBase);
   };
  
-  _hangmanService.startGame = function(game) {
+  _hangmanService.saveGame = function(game) {
     return $http.post(urlBase, game);
   };
  
