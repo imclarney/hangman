@@ -24,12 +24,12 @@ hangman.controller('HangmanCtrl', function($rootScope, $scope, hangmanFactory) {
   // Start a new game
   $scope.start = function($event) {
     if ($event.which == 13 && $scope.word) {
-      // Reset
-      reset();
-      $scope.hiddenWord = $scope.word;
+      // Reset the game
+      $scope.reset();
 
       // Set up the new game
-      var uniqueLettersArr = []
+      $scope.hiddenWord = $scope.word;
+      var uniqueLettersArr = [];
       var jsonArr = [];
       var index = 0;
       while (index < $scope.word.length) {
@@ -66,7 +66,7 @@ hangman.controller('HangmanCtrl', function($rootScope, $scope, hangmanFactory) {
       $scope.warning = false;
       if ($scope.game.status === 'inProgress') {
         var letter = $scope.letter.toLowerCase();
-        if ($scope.correctGuesses.includes(letter)) {
+        if ($scope.correctGuesses.includes(letter) || $scope.incorrectGuesses.includes(letter)) {
           $scope.warning = 'You already guessed \'' + $scope.letter + '\'!';
         } else {
           var wrong = true;
@@ -96,12 +96,10 @@ hangman.controller('HangmanCtrl', function($rootScope, $scope, hangmanFactory) {
             }
           }
         }
-      } else {
-        $scope.warning = 'This game has ended. To start a new game, enter a word in the input field above.';
       }
     }
     $scope.letter = '';
-  }
+  };
 
   // Delete this game
   $scope.delete = function() {
@@ -109,12 +107,13 @@ hangman.controller('HangmanCtrl', function($rootScope, $scope, hangmanFactory) {
     .then(function(data) {
       if (data.data) {
         $scope.games.splice($scope.games.length - 1, 1);
-        reset();
+        $scope.reset();
       }
     });
   };
 
-  reset = function() {
+  // Reset the game
+  $scope.reset = function() {
     $scope.game = {};
     $scope.correctGuesses = [];
     $scope.incorrectGuesses = [];
